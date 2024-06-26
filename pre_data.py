@@ -57,3 +57,6 @@ def tem_qua_data_pre(sheet1, sheet2):
 
 sh1, sh2, sh3 = get_sheet()
 print(tem_qua_data_pre(sh1, sh2))
+tem_data,qua_data=tem_qua_data_pre(sh1,sh2)
+tem_data.to_excel('tem_data.xlsx')
+qua_data.to_excel('qua_data.xlsx')
