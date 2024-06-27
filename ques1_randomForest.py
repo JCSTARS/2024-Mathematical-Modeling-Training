@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 qua_data=pd.read_excel('qua_data.xlsx')
 tem_data=pd.read_excel('tem_data.xlsx')
 #print(qua_data,tem_data)
@@ -27,7 +27,7 @@ RFR_1=RandomForestRegressor()
 RFR_1.fit(X_1_Train,Y_1_Train)
 Y_1_Pred=RFR_1.predict(X_1_Test)
 Predqua1=pd.DataFrame({"实际值":Y_1_Test,"预测值":Y_1_Pred})
-print(Predqua1)
+#print(Predqua1)
 
 #检验模型
 RFRMeanSquaredError1=mean_squared_error(Y_1_Test,Y_1_Pred)
@@ -42,7 +42,7 @@ RFR_2=RandomForestRegressor()
 RFR_2.fit(X_2_Train,Y_2_Train)
 Y_2_Pred=RFR_2.predict(X_2_Test)
 Predqua2=pd.DataFrame({"实际值":Y_2_Test,"预测值":Y_2_Pred})
-print(Predqua2)
+#print(Predqua2)
 
 #检验模型
 RFRMeanSquaredError2=mean_squared_error(Y_2_Test,Y_2_Pred)
@@ -57,7 +57,7 @@ RFR_3=RandomForestRegressor()
 RFR_3.fit(X_3_Train,Y_3_Train)
 Y_3_Pred=RFR_3.predict(X_3_Test)
 Predqua3=pd.DataFrame({"实际值":Y_3_Test,"预测值":Y_3_Pred})
-print(Predqua3)
+#print(Predqua3)
 
 #检验模型
 RFRMeanSquaredError3=mean_squared_error(Y_3_Test,Y_3_Pred)
@@ -72,8 +72,21 @@ RFR_4=RandomForestRegressor()
 RFR_4.fit(X_4_Train,Y_4_Train)
 Y_4_Pred=RFR_4.predict(X_4_Test)
 Predqua4=pd.DataFrame({"实际值":Y_4_Test,"预测值":Y_4_Pred})
-print(Predqua4)
+#print(Predqua4)
 
 #检验模型
 RFRMeanSquaredError4=mean_squared_error(Y_4_Test,Y_4_Pred)
 print("随机森林回归-MSE:%f"% RFRMeanSquaredError4)
+
+#tem_A=[1404.89,859.77]
+#tem_B=[1151.75,859.77]
+#tem_A_array = np.array([tem_A])
+#tem_B_array = np.array([tem_B])
+#print(RFR_1.predict(tem_A_array))
+#print(RFR_2.predict(tem_A_array))
+#print(RFR_3.predict(tem_A_array))
+#print(RFR_4.predict(tem_A_array))
+#print(RFR_1.predict(tem_B_array))
+#print(RFR_2.predict(tem_B_array))
+#print(RFR_3.predict(tem_B_array))
+#print(RFR_4.predict(tem_B_array))
