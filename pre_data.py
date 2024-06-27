@@ -10,7 +10,7 @@ def get_sheet():
     sheet3 = pd.read_excel("附件1(Attachment 1)2022-51MCM-Problem B.xlsx", sheet_name=2)
     return sheet1, sheet2, sheet3
 
-def tem_qua_data_pre(sheet1, sheet2):
+def tem_qua_data_pre(sheet1, sheet2, sheet3):
     """
     系统温度数据预处理
     从图中不难看出温度是阶段性变化的
@@ -53,7 +53,26 @@ def tem_qua_data_pre(sheet1, sheet2):
     qua_data = sheet2[cond2.apply(lambda x: not x)].iloc[2:, :]
     qua_data.index = [i for i in range(len(qua_data))]
     # 此时qua_data与tem_data都是0~234的序列， 并且一一对应
-    return tem_data, qua_data
+
+    """
+    预处理矿石数据
+    """
+    cnt = tem_data.iloc[:, 0].astype('string').apply(lambda x: x[8: 10])
+    time_cnt = []
+    for i in pd.DataFrame(cnt).groupby(by='时间 (Time)'):
+        time_cnt.append(len(i[1]))
+    mine_data = pd.DataFrame(np.repeat(sheet3.iloc[:-2, :].values, time_cnt, axis=0), columns=sheet3.columns)
+    """
+    合并
+    """
+    columns_to_write = qua_data.columns[1:]
+    qua_data = qua_data[columns_to_write]
+    columns_to_write = mine_data.columns[1:]
+    mine_data = mine_data[columns_to_write]
+    combined_data = pd.concat([tem_data, qua_data, mine_data], axis=1)
+    combined_data.to_excel('output.xlsx', sheet_name='Sheet1', index=False)
+    # print(combined_data)
+    return tem_data, qua_data, mine_data
 
 sh1, sh2, sh3 = get_sheet()
-print(tem_qua_data_pre(sh1, sh2))
+tem_qua_data_pre(sh1, sh2, sh3)
