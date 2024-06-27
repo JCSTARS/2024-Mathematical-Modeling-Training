@@ -1,4 +1,5 @@
 import pandas as pd
+import  numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.model_selection import train_test_split
@@ -19,3 +20,10 @@ RFRMeanSquaredError1=mean_squared_error(Y_Test['系统I温度 (Temperature of sy
 RFRMeanSquaredError2=mean_squared_error(Y_Test['系统II温度 (Temperature of system II)'],Y_pred[:,1])
 #print(RFRMeanSquaredError1)
 #print(RFRMeanSquaredError2)
+
+testA=[79.17,22.72,10.51,17.05,57.5,108.62,44.5,20.09]
+testB=[80.10,23.34,11.03,13.29,57.5,108.62,44.5,20.09]
+testA_array = np.array(testA)
+testB_array = np.array(testB)
+print(mor.predict([testA_array]))
+print(mor.predict([testB_array]))
