@@ -1,0 +1,24 @@
+import pandas as pd
+import numpy as np
+data1=pd.read_excel('data_ques2.xlsx')
+data2=pd.read_excel('附件一.xls')
+
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+X=data1[['会员数量','区域内会员限额占比']]
+Y=data1['任务标价']
+
+X_Train,X_Test,Y_Train,Y_Test=train_test_split(X,Y,test_size=0.2,random_state=42)
+
+RFR=RandomForestRegressor()
+RFR.fit(X_Train,Y_Train)
+Y_Pred=RFR.predict(X_Test)
+Predqua=pd.DataFrame({"实际值":Y_Test,"预测值":Y_Pred})
+#print(Predqua)
+
+#RFRMeanSquaredError=mean_squared_error(Y_Test,Y_Pred)
+#print("随机森林回归-MSE:%f"% RFRMeanSquaredError)
+
+#X_Total=data2[]
